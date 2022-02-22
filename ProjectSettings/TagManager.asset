@@ -12,6 +12,7 @@ TagManager:
   - bucket
   - trap
   - door
+  - cuttableTree
   layers:
   - Default
   - TransparentFX
