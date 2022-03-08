@@ -12,6 +12,7 @@ TagManager:
   - bucket
   - trap
   - door
+  - spearTarget
   layers:
   - Default
   - TransparentFX
