@@ -8,14 +8,19 @@ using UnityEngine.SceneManagement;
 public class TextTypingScript : MonoBehaviour
 {
 	public Image panel;
+	public KeyCode skipTextKey;
 	TextMeshProUGUI txt;
 	string story;
 
 	public string[] BeginningSentences; 
-
 	public string[] fishingSentences;
 
+	public string[] axeSentences;
+	public string[] axeSentencesFinished;
+	public string[] spearSentences;
+	public string[] hoeSentences;
 
+	
 
 	void Awake()
 	{
@@ -35,7 +40,7 @@ public class TextTypingScript : MonoBehaviour
 	IEnumerator PlayText()
 	{
 		yield return new WaitForSeconds(1f);
-		if(SceneManager.GetActiveScene().buildIndex == 1)
+		if(SceneManager.GetActiveScene().buildIndex == 1) //index for main scene
         {
 
 			foreach (string sentence in BeginningSentences)
@@ -46,32 +51,183 @@ public class TextTypingScript : MonoBehaviour
 				story = sentence;
 				foreach (char c in story)
 				{
+					//allows player to skip text loading
+					if(Input.GetKeyDown(skipTextKey)) {
+						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+						txt.text += leftOver; //add the rest of the text instantaneously
+						break; //end loop
+					}
+
 					txt.text += c;
 					yield return new WaitForSeconds(0.060f);
 				}
-				yield return new WaitForSeconds(1f);
-				txt.text = "";
+
+
+				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
+					if(Input.GetKeyDown(skipTextKey)) {
+						txt.text = "";
+					}
+				}
+
 				StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
-				yield return new WaitForSeconds(1f);
+				yield return new WaitForSeconds(0.5f);
 			}
         }
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        else if (SceneManager.GetActiveScene().buildIndex == 2) //index for fishing scene
         {
 			foreach (string sentence in fishingSentences)
 			{
 				StartCoroutine(FadeTextToFullAlpha(1f, txt));
 				story = sentence;
+
 				foreach (char c in story)
 				{
+					//allows player to skip text loading
+					if(Input.GetKeyDown(skipTextKey)) {
+						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+						txt.text += leftOver; //add the rest of the text instantaneously
+						break; //end loop
+					}
+
 					txt.text += c;
 					yield return new WaitForSeconds(0.060f);
 				}
-				yield return new WaitForSeconds(1f);
-				txt.text = "";
+
+				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
+					if(Input.GetKeyDown(skipTextKey)) {
+						txt.text = "";
+					}
+				}
+
 				StartCoroutine(FadeTextToZeroAlpha(1f, txt));
 				yield return new WaitForSeconds(1f);
 			}
 		}
+
+		else if (SceneManager.GetActiveScene().buildIndex == 3) //axe scene index 
+		{
+			//if axe scene is not finished
+			foreach (string sentence in axeSentences)
+			{
+				StartCoroutine(FadeTextToFullAlpha(1f, txt));
+				story = sentence;
+
+				foreach (char c in story)
+				{
+					//allows player to skip text loading
+					if(Input.GetKeyDown(skipTextKey)) {
+						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+						txt.text += leftOver; //add the rest of the text instantaneously
+						break; //end loop
+					}
+
+					txt.text += c;
+					yield return new WaitForSeconds(0.060f);
+				}
+
+				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
+					if(Input.GetKeyDown(skipTextKey)) {
+						txt.text = "";
+					}
+				}
+
+				StartCoroutine(FadeTextToZeroAlpha(1f, txt));
+				yield return new WaitForSeconds(1f);
+			}
+
+			//else {
+			// foreach (string sentence in axeSentencesFinished)
+			// {
+			// 	StartCoroutine(FadeTextToFullAlpha(1f, txt));
+			// 	story = sentence;
+
+			// 	foreach (char c in story)
+			// 	{
+			// 		//allows player to skip text loading
+			// 		if(Input.GetKeyDown(skipTextKey)) {
+			// 			string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+			// 			txt.text += leftOver; //add the rest of the text instantaneously
+			// 			break; //end loop
+			// 		}
+
+			// 		txt.text += c;
+			// 		yield return new WaitForSeconds(0.060f);
+			// 	}
+
+			// 	while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
+			// 		if(Input.GetKeyDown(skipTextKey)) {
+			// 			txt.text = "";
+			// 		}
+			// 	}
+
+			// 	StartCoroutine(FadeTextToZeroAlpha(1f, txt));
+			// 	yield return new WaitForSeconds(1f);
+			// }
+			//}
+		}
+
+		else if (SceneManager.GetActiveScene().buildIndex == 4) //spear scene index
+		{
+			foreach (string sentence in spearSentences)
+			{
+				StartCoroutine(FadeTextToFullAlpha(1f, txt));
+				story = sentence;
+
+				foreach (char c in story)
+				{
+					//allows player to skip text loading
+					if(Input.GetKeyDown(skipTextKey)) {
+						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+						txt.text += leftOver; //add the rest of the text instantaneously
+						break; //end loop
+					}
+
+					txt.text += c;
+					yield return new WaitForSeconds(0.060f);
+				}
+
+				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
+					if(Input.GetKeyDown(skipTextKey)) {
+						txt.text = "";
+					}
+				}
+
+				StartCoroutine(FadeTextToZeroAlpha(1f, txt));
+				yield return new WaitForSeconds(1f);
+			}
+		}
+
+		else if (SceneManager.GetActiveScene().buildIndex == 5) //hoe scene index
+		{
+			foreach (string sentence in hoeSentences)
+			{
+				StartCoroutine(FadeTextToFullAlpha(1f, txt));
+				story = sentence;
+
+				foreach (char c in story)
+				{
+					//allows player to skip text loading
+					if(Input.GetKeyDown(skipTextKey)) {
+						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+						txt.text += leftOver; //add the rest of the text instantaneously
+						break; //end loop
+					}
+
+					txt.text += c;
+					yield return new WaitForSeconds(0.060f);
+				}
+
+				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
+					if(Input.GetKeyDown(skipTextKey)) {
+						txt.text = "";
+					}
+				}
+
+				StartCoroutine(FadeTextToZeroAlpha(1f, txt));
+				yield return new WaitForSeconds(1f);
+			}
+		}
+
 		StartCoroutine(FadeToZeroAlpha(1f, panel));
 		StartCoroutine(FadeTextToZeroAlpha(1f, txt));
 	}
