@@ -789,6 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHits: 3
+  axe: {fileID: 0}
 --- !u!65 &326125204
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6197,9 +6198,10 @@ GameObject:
   - component: {fileID: 1786994330}
   - component: {fileID: 1786994331}
   - component: {fileID: 1786994337}
+  - component: {fileID: 1786994338}
   m_Layer: 7
   m_Name: axe
-  m_TagString: Untagged
+  m_TagString: axe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6326,6 +6328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b71fb54e868243bf7928118f52dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
 --- !u!65 &1786994337
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6339,6 +6342,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.37, y: 2.1, z: 0.48}
   m_Center: {x: -0.3, y: 8.92, z: 0.016554998}
+--- !u!114 &1786994338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786994329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db938fe9a06f0941807a93912a89898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelChanger: {fileID: 1073063766}
 --- !u!1001 &1825216147
 PrefabInstance:
   m_ObjectHideFlags: 0

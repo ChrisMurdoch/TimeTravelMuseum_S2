@@ -13,6 +13,7 @@ TagManager:
   - trap
   - door
   - cuttableTree
+  - axe
   layers:
   - Default
   - TransparentFX
