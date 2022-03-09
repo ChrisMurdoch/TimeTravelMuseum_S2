@@ -10,8 +10,10 @@ public class TreeCutter : MonoBehaviour
     private bool canTrigger;
     private int numTreesCut;
     private bool axeMinigameFinished;
+    private AudioSource chopSource;
 
     public TextMeshPro scoreText;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,7 @@ public class TreeCutter : MonoBehaviour
         canTrigger = true;
         numTreesCut = 0;
         axeMinigameFinished = false;
+        chopSource = this.gameObject.GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other) {
@@ -32,7 +35,8 @@ public class TreeCutter : MonoBehaviour
             if(hitObject.GetComponent<treeHealthScript>() != null) {
                 hitObject.GetComponent<treeHealthScript>().DamageTree();
             }
-
+            
+            chopSource.Play(); //play chopping audio when tree is hit
             canTrigger = false;
         }
     } 
