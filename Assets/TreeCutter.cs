@@ -1,22 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class TreeCutter : MonoBehaviour
 {
 
     private bool canTrigger;
+    private int numTreesCut;
+    private bool axeMinigameFinished;
+    private AudioSource chopSource;
+
+    public TextMeshPro scoreText;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         canTrigger = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        numTreesCut = 0;
+        axeMinigameFinished = false;
+        chopSource = this.gameObject.GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other) {
@@ -26,16 +31,12 @@ public class TreeCutter : MonoBehaviour
 
         if(hitObject.tag == "cuttableTree")
         {
-            Debug.Log("tree hit");
-            //reference damage script for this gameobject
-            // add 1 hit of damage
-
             
             if(hitObject.GetComponent<treeHealthScript>() != null) {
-                Debug.Log("found tree script");
                 hitObject.GetComponent<treeHealthScript>().DamageTree();
             }
-
+            
+            chopSource.Play(); //play chopping audio when tree is hit
             canTrigger = false;
         }
     } 
@@ -43,5 +44,19 @@ public class TreeCutter : MonoBehaviour
     void OnTriggerExit(Collider other) {
 
         canTrigger = true;
+    }
+
+    public void IncreaseNumTreesCut () {
+        numTreesCut++;
+        scoreText.text = numTreesCut + " / 8 trees cut";
+
+        if (numTreesCut >= 8) {
+            axeMinigameFinished = true;
+        }
+    }
+
+    public bool AxeMinigameFinished {
+        get { return axeMinigameFinished; }
+        set { axeMinigameFinished = value; }
     }
 }

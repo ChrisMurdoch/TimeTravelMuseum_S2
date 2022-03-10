@@ -6,6 +6,7 @@ public class treeHealthScript : MonoBehaviour
 {
 
     public int maxHits;
+    public TreeCutter axe;
     private int currentHits;
 
 
@@ -14,7 +15,7 @@ public class treeHealthScript : MonoBehaviour
     {
         if(currentHits >= maxHits)
         {
-            Debug.Log("tree dead");
+            axe.IncreaseNumTreesCut();
             Destroy(this.gameObject); //replace with falling tree animation
         }
     }

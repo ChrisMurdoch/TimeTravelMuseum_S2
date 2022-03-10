@@ -17,6 +17,9 @@ public class TextTypingScript : MonoBehaviour
 
 	public string[] axeSentences;
 	public string[] axeSentencesFinished;
+	public TreeCutter axe;
+	public LevelChangeScript levelChanger;
+
 	public string[] spearSentences;
 	public string[] hoeSentences;
 
@@ -106,64 +109,66 @@ public class TextTypingScript : MonoBehaviour
 
 		else if (SceneManager.GetActiveScene().buildIndex == 3) //axe scene index 
 		{
-			//if axe scene is not finished
-			foreach (string sentence in axeSentences)
-			{
-				StartCoroutine(FadeTextToFullAlpha(1f, txt));
-				story = sentence;
-
-				foreach (char c in story)
+			if(!axe.AxeMinigameFinished) {
+				foreach (string sentence in axeSentences)
 				{
-					//allows player to skip text loading
-					if(Input.GetKeyDown(skipTextKey)) {
-						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
-						txt.text += leftOver; //add the rest of the text instantaneously
-						break; //end loop
+					StartCoroutine(FadeTextToFullAlpha(1f, txt));
+					story = sentence;
+
+					foreach (char c in story)
+					{
+						//allows player to skip text loading
+						if(Input.GetKeyDown(skipTextKey)) {
+							string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+							txt.text += leftOver; //add the rest of the text instantaneously
+							break; //end loop
+						}
+
+						txt.text += c;
+						yield return new WaitForSeconds(0.060f);
 					}
 
-					txt.text += c;
-					yield return new WaitForSeconds(0.060f);
-				}
-
-				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-					if(Input.GetKeyDown(skipTextKey)) {
-						txt.text = "";
+					while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
+						if(Input.GetKeyDown(skipTextKey)) {
+							txt.text = "";
+						}
 					}
+
+					StartCoroutine(FadeTextToZeroAlpha(1f, txt));
+					yield return new WaitForSeconds(1f);
 				}
 
-				StartCoroutine(FadeTextToZeroAlpha(1f, txt));
-				yield return new WaitForSeconds(1f);
+			} else {
+				foreach (string sentence in axeSentencesFinished)
+				{
+					StartCoroutine(FadeTextToFullAlpha(1f, txt));
+					story = sentence;
+
+					foreach (char c in story)
+					{
+						//allows player to skip text loading
+						if(Input.GetKeyDown(skipTextKey)) {
+							string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+							txt.text += leftOver; //add the rest of the text instantaneously
+							break; //end loop
+						}
+
+						txt.text += c;
+						yield return new WaitForSeconds(0.060f);
+					}
+
+					while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
+						if(Input.GetKeyDown(skipTextKey)) {
+							txt.text = "";
+						}
+					}
+
+					StartCoroutine(FadeTextToZeroAlpha(1f, txt));
+					yield return new WaitForSeconds(1f);
+				}
+
+				levelChanger.FadeToLevel(1);
 			}
-
-			//else {
-			// foreach (string sentence in axeSentencesFinished)
-			// {
-			// 	StartCoroutine(FadeTextToFullAlpha(1f, txt));
-			// 	story = sentence;
-
-			// 	foreach (char c in story)
-			// 	{
-			// 		//allows player to skip text loading
-			// 		if(Input.GetKeyDown(skipTextKey)) {
-			// 			string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
-			// 			txt.text += leftOver; //add the rest of the text instantaneously
-			// 			break; //end loop
-			// 		}
-
-			// 		txt.text += c;
-			// 		yield return new WaitForSeconds(0.060f);
-			// 	}
-
-			// 	while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-			// 		if(Input.GetKeyDown(skipTextKey)) {
-			// 			txt.text = "";
-			// 		}
-			// 	}
-
-			// 	StartCoroutine(FadeTextToZeroAlpha(1f, txt));
-			// 	yield return new WaitForSeconds(1f);
-			// }
-			//}
 		}
 
 		else if (SceneManager.GetActiveScene().buildIndex == 4) //spear scene index
