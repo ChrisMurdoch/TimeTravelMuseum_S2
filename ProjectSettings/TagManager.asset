@@ -13,6 +13,7 @@ TagManager:
   - trap
   - door
   - spearTarget
+  - spear
   layers:
   - Default
   - TransparentFX
