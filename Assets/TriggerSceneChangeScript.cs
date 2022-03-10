@@ -38,6 +38,7 @@ public class TriggerSceneChangeScript : MonoBehaviour
 
             else if (this.gameObject.tag == "axe") //enter axe scene from main hub
             {
+                Debug.Log("trigger scene change");
                 levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(3);
             }
 

@@ -1506,21 +1506,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1286196007}
     - target: {fileID: 5895947059226047280, guid: 19a9ad239de0e5a4598f1fb6ad7f272f, type: 3}
+      propertyPath: panel
+      value: 
+      objectReference: {fileID: 1730364871}
+    - target: {fileID: 5895947059226047280, guid: 19a9ad239de0e5a4598f1fb6ad7f272f, type: 3}
       propertyPath: levelChanger
       value: 
       objectReference: {fileID: 81763659}
     - target: {fileID: 5895947059226047280, guid: 19a9ad239de0e5a4598f1fb6ad7f272f, type: 3}
       propertyPath: axeSentences.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5895947059226047280, guid: 19a9ad239de0e5a4598f1fb6ad7f272f, type: 3}
       propertyPath: axeSentences.Array.data[0]
       value: The stone axe was a very important tool for the Native Americans . It
-        was used to gather wood, vines, and river cane. This would be used to build
-        inner structures for houses, weave baskets, make other tools, or build campfires.
+        was used to gather wood, vines, and river cane.
       objectReference: {fileID: 0}
     - target: {fileID: 5895947059226047280, guid: 19a9ad239de0e5a4598f1fb6ad7f272f, type: 3}
       propertyPath: axeSentences.Array.data[1]
+      value: This would be used to build inner structures for houses, weave baskets,
+        make other tools, or build campfires.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895947059226047280, guid: 19a9ad239de0e5a4598f1fb6ad7f272f, type: 3}
+      propertyPath: axeSentences.Array.data[2]
       value: You will use this stone axe to cut small trees that can be used to build
         wattle-and-daub houses. Hit each tree 3 times to chop it down, then drag
         it over to the building area. 8 trees  should be enough for one house.
@@ -1740,6 +1748,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1730364871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 566159165833517223, guid: 220a82cd3e95a7246a48a648dd2a95f7, type: 3}
+  m_PrefabInstance: {fileID: 825984572}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1739427539
 PrefabInstance:
   m_ObjectHideFlags: 0
