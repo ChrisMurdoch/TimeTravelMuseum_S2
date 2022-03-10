@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class TextTypingScript : MonoBehaviour
 {
 	public Image panel;
-	public KeyCode skipTextKey;
 	TextMeshProUGUI txt;
 	string story;
 
@@ -27,7 +26,6 @@ public class TextTypingScript : MonoBehaviour
 
 	void Awake()
 	{
-		
 		Color tempColor = panel.color;
 		tempColor.a = 0f;
 		panel.color = tempColor;
@@ -55,7 +53,7 @@ public class TextTypingScript : MonoBehaviour
 				foreach (char c in story)
 				{
 					//allows player to skip text loading
-					if(Input.GetKeyDown(skipTextKey)) {
+					if (OVRInput.Get(OVRInput.Button.One)){
 						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
 						txt.text += leftOver; //add the rest of the text instantaneously
 						break; //end loop
@@ -67,7 +65,7 @@ public class TextTypingScript : MonoBehaviour
 
 
 				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-					if(Input.GetKeyDown(skipTextKey)) {
+					if (OVRInput.Get(OVRInput.Button.One)) {
 						txt.text = "";
 					}
 				}
@@ -86,7 +84,7 @@ public class TextTypingScript : MonoBehaviour
 				foreach (char c in story)
 				{
 					//allows player to skip text loading
-					if(Input.GetKeyDown(skipTextKey)) {
+					if (OVRInput.Get(OVRInput.Button.One)) {
 						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
 						txt.text += leftOver; //add the rest of the text instantaneously
 						break; //end loop
@@ -97,7 +95,7 @@ public class TextTypingScript : MonoBehaviour
 				}
 
 				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-					if(Input.GetKeyDown(skipTextKey)) {
+					if (OVRInput.Get(OVRInput.Button.One)) {
 						txt.text = "";
 					}
 				}
@@ -118,7 +116,7 @@ public class TextTypingScript : MonoBehaviour
 					foreach (char c in story)
 					{
 						//allows player to skip text loading
-						if(Input.GetKeyDown(skipTextKey)) {
+						if (OVRInput.Get(OVRInput.Button.One)) {
 							string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
 							txt.text += leftOver; //add the rest of the text instantaneously
 							break; //end loop
@@ -129,7 +127,7 @@ public class TextTypingScript : MonoBehaviour
 					}
 
 					while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-						if(Input.GetKeyDown(skipTextKey)) {
+						if (OVRInput.Get(OVRInput.Button.One)) {
 							txt.text = "";
 						}
 					}
@@ -147,7 +145,7 @@ public class TextTypingScript : MonoBehaviour
 					foreach (char c in story)
 					{
 						//allows player to skip text loading
-						if(Input.GetKeyDown(skipTextKey)) {
+						if (OVRInput.Get(OVRInput.Button.One)) {
 							string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
 							txt.text += leftOver; //add the rest of the text instantaneously
 							break; //end loop
@@ -158,7 +156,7 @@ public class TextTypingScript : MonoBehaviour
 					}
 
 					while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-						if(Input.GetKeyDown(skipTextKey)) {
+						if (OVRInput.Get(OVRInput.Button.One)) {
 							txt.text = "";
 						}
 					}
@@ -181,7 +179,7 @@ public class TextTypingScript : MonoBehaviour
 				foreach (char c in story)
 				{
 					//allows player to skip text loading
-					if(Input.GetKeyDown(skipTextKey)) {
+					if (OVRInput.Get(OVRInput.Button.One)) {
 						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
 						txt.text += leftOver; //add the rest of the text instantaneously
 						break; //end loop
@@ -192,7 +190,7 @@ public class TextTypingScript : MonoBehaviour
 				}
 
 				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-					if(Input.GetKeyDown(skipTextKey)) {
+					if (OVRInput.Get(OVRInput.Button.One)) {
 						txt.text = "";
 					}
 				}
@@ -212,7 +210,7 @@ public class TextTypingScript : MonoBehaviour
 				foreach (char c in story)
 				{
 					//allows player to skip text loading
-					if(Input.GetKeyDown(skipTextKey)) {
+					if (OVRInput.Get(OVRInput.Button.One)) {
 						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
 						txt.text += leftOver; //add the rest of the text instantaneously
 						break; //end loop
@@ -223,7 +221,7 @@ public class TextTypingScript : MonoBehaviour
 				}
 
 				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-					if(Input.GetKeyDown(skipTextKey)) {
+					if (OVRInput.Get(OVRInput.Button.One)) {
 						txt.text = "";
 					}
 				}
