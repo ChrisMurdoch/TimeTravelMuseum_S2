@@ -12,8 +12,9 @@ TagManager:
   - bucket
   - trap
   - door
-  - spearTarget
-  - spear
+  - cuttableTree
+  - axe
+  - Tree
   layers:
   - Default
   - TransparentFX

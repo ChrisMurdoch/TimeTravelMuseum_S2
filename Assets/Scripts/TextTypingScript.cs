@@ -8,70 +8,257 @@ using UnityEngine.SceneManagement;
 public class TextTypingScript : MonoBehaviour
 {
 	public Image panel;
-	TextMeshProUGUI txt;
+	public TextMeshProUGUI txt;
 	string story;
 
 	public string[] BeginningSentences; 
-
 	public string[] fishingSentences;
 
+	public string[] axeSentences;
+	public string[] axeSentencesFinished;
+	public TreeCutter axe;
+	public LevelChangeScript levelChanger;
 
+	public string[] spearSentences;
+	public string[] hoeSentences;
+
+	public Coroutine textCoroutine;
+
+	private bool textFinished;
 
 	void Awake()
 	{
-		
 		Color tempColor = panel.color;
 		tempColor.a = 0f;
 		panel.color = tempColor;
 		txt = GetComponent<TextMeshProUGUI>();
+		textFinished = false;
 
 		story = txt.text;
 		txt.text = "";
 		StartCoroutine(FadeTextToFullAlpha(1f, txt));
 		StartCoroutine(FadeToFullAlpha(1f, panel));
-		StartCoroutine("PlayText");
+		textCoroutine = StartCoroutine("PlayText");
 	}
 
-	IEnumerator PlayText()
+	public IEnumerator PlayText()
 	{
 		yield return new WaitForSeconds(1f);
-		if(SceneManager.GetActiveScene().buildIndex == 1)
+		if(SceneManager.GetActiveScene().buildIndex == 1) //index for main scene
         {
 
 			foreach (string sentence in BeginningSentences)
 			{
-
+				textFinished = false;
 				StartCoroutine(FadeTextToFullAlpha(1f, txt));
 
 				story = sentence;
 				foreach (char c in story)
 				{
+					//allows player to skip text loading
+					if (OVRInput.Get(OVRInput.Button.One)){
+						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+						txt.text += leftOver; //add the rest of the text instantaneously
+						break; //end loop
+					}
+
 					txt.text += c;
 					yield return new WaitForSeconds(0.060f);
 				}
-				yield return new WaitForSeconds(1f);
-				txt.text = "";
+
+				yield return new WaitForSeconds(1);
+
+				textFinished = true;
+
+				while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+					yield return null; //wait until player presses button;
+				}
+
 				StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
-				yield return new WaitForSeconds(1f);
+				txt.text = "";
+				yield return new WaitForSeconds(0.5f);
 			}
         }
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        else if (SceneManager.GetActiveScene().buildIndex == 2) //index for fishing scene
         {
 			foreach (string sentence in fishingSentences)
 			{
+				textFinished = false;
 				StartCoroutine(FadeTextToFullAlpha(1f, txt));
 				story = sentence;
+
 				foreach (char c in story)
 				{
+					//allows player to skip text loading
+					if (OVRInput.Get(OVRInput.Button.One)) {
+						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+						txt.text += leftOver; //add the rest of the text instantaneously
+						break; //end loop
+					}
+
 					txt.text += c;
 					yield return new WaitForSeconds(0.060f);
 				}
-				yield return new WaitForSeconds(1f);
+
+				yield return new WaitForSeconds(1);
+
+				textFinished = true;
+
+				while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+					yield return null; //wait until player presses button;
+				}
+
+				StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
 				txt.text = "";
-				StartCoroutine(FadeTextToZeroAlpha(1f, txt));
-				yield return new WaitForSeconds(1f);
+				yield return new WaitForSeconds(0.5f);
 			}
 		}
+
+		else if (SceneManager.GetActiveScene().buildIndex == 3) //axe scene index 
+		{
+			Debug.Log("playing axe scene text");
+			if(!axe.AxeMinigameFinished) {
+				foreach (string sentence in axeSentences)
+				{
+					textFinished = false;
+					StartCoroutine(FadeTextToFullAlpha(1f, txt));
+					story = sentence;
+
+					foreach (char c in story)
+					{
+						//allows player to skip text loading
+						if (OVRInput.Get(OVRInput.Button.One)) {
+							string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+							txt.text += leftOver; //add the rest of the text instantaneously
+							break; //end loop
+						}
+
+						txt.text += c;
+						yield return new WaitForSeconds(0.060f);
+					}
+
+					yield return new WaitForSeconds(1);
+
+					textFinished = true;
+
+					while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+						yield return null; //wait until player presses button;
+					}
+
+					StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+					txt.text = "";
+					yield return new WaitForSeconds(0.5f);
+				}
+
+			} else {
+
+				StartCoroutine(FadeToFullAlpha(1f, panel));
+				foreach (string sentence in axeSentencesFinished)
+				{
+					textFinished = false;
+					StartCoroutine(FadeTextToFullAlpha(1f, txt));
+					story = sentence;
+
+					foreach (char c in story)
+					{
+						//allows player to skip text loading
+						if (OVRInput.Get(OVRInput.Button.One)) {
+							string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+							txt.text += leftOver; //add the rest of the text instantaneously
+							break; //end loop
+						}
+
+						txt.text += c;
+						yield return new WaitForSeconds(0.060f);
+					}
+
+					yield return new WaitForSeconds(1);
+
+					textFinished = true;
+
+					while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+						yield return null; //wait until player presses button;
+					}
+
+					StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+					txt.text = "";
+					yield return new WaitForSeconds(0.5f);
+				}
+
+				levelChanger.FadeToLevel(1); //exit level when finished displaying text
+			}
+		}
+
+		else if (SceneManager.GetActiveScene().buildIndex == 4) //spear scene index
+		{
+			foreach (string sentence in spearSentences)
+			{
+				textFinished = false;
+				StartCoroutine(FadeTextToFullAlpha(1f, txt));
+				story = sentence;
+
+				foreach (char c in story)
+				{
+					//allows player to skip text loading
+					if (OVRInput.Get(OVRInput.Button.One)) {
+						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+						txt.text += leftOver; //add the rest of the text instantaneously
+						break; //end loop
+					}
+
+					txt.text += c;
+					yield return new WaitForSeconds(0.060f);
+				}
+
+				yield return new WaitForSeconds(1);
+
+				textFinished = true;
+
+				while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+					yield return null; //wait until player presses button;
+				}
+
+				StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+				txt.text = "";
+				yield return new WaitForSeconds(0.5f);
+			}
+		}
+
+		else if (SceneManager.GetActiveScene().buildIndex == 5) //hoe scene index
+		{
+			foreach (string sentence in hoeSentences)
+			{
+				textFinished = false;
+				StartCoroutine(FadeTextToFullAlpha(1f, txt));
+				story = sentence;
+
+				foreach (char c in story)
+				{
+					//allows player to skip text loading
+					if (OVRInput.Get(OVRInput.Button.One)) {
+						string leftOver = story.Remove(0, txt.text.ToString().Length); //get the part of string that hasn't been added to text yet
+						txt.text += leftOver; //add the rest of the text instantaneously
+						break; //end loop
+					}
+
+					txt.text += c;
+					yield return new WaitForSeconds(0.060f);
+				}
+
+				yield return new WaitForSeconds(1);
+
+				textFinished = true;
+
+				while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+					yield return null; //wait until player presses button;
+				}
+
+				StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+				txt.text = "";
+				yield return new WaitForSeconds(0.5f);
+			}
+		}
+
 		StartCoroutine(FadeToZeroAlpha(1f, panel));
 		StartCoroutine(FadeTextToZeroAlpha(1f, txt));
 	}

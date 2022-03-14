@@ -21,26 +21,36 @@ public class TriggerSceneChangeScript : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            if(this.gameObject.tag == "door" && SceneManager.GetActiveScene().buildIndex == 0)
+            if(this.gameObject.tag == "door" && SceneManager.GetActiveScene().buildIndex != 1) //enter main hub from any scene
             {
                 levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(1);
             }
-            if(this.gameObject.tag == "trap" && SceneManager.GetActiveScene().buildIndex == 1)
-            {
-                levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(2);
-            }
-            if (this.gameObject.tag == "door" && SceneManager.GetActiveScene().buildIndex == 1)
+
+            else if (this.gameObject.tag == "door") //go back to tutorial from main hub
             {
                 levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(0);
             }
-            if (this.gameObject.tag == "door" && SceneManager.GetActiveScene().buildIndex == 2)
+
+            else if(this.gameObject.tag == "trap") //enter fishing scene from main hub
             {
-                levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(1);
+                levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(2);
             }
-            //if (SceneManager.GetActiveScene().buildIndex == 2)
-            //{
-            //    levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(1);
-            //}
+
+            else if (this.gameObject.tag == "axe") //enter axe scene from main hub
+            {
+                Debug.Log("trigger scene change");
+                levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(3);
+            }
+
+            else if (this.gameObject.tag == "spear") //enter spear scene from main hub
+            {
+                levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(4);
+            }
+
+            else if (this.gameObject.tag == "hoe") //enter hoe scene from main hub
+            {
+                levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(5);
+            }
 
         }
     }
