@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class TextTypingScript : MonoBehaviour
 {
 	public Image panel;
-	TextMeshProUGUI txt;
+	public TextMeshProUGUI txt;
 	string story;
 
 	public string[] BeginningSentences; 
@@ -22,7 +22,9 @@ public class TextTypingScript : MonoBehaviour
 	public string[] spearSentences;
 	public string[] hoeSentences;
 
-	
+	public Coroutine textCoroutine;
+
+	private bool textFinished;
 
 	void Awake()
 	{
@@ -30,15 +32,16 @@ public class TextTypingScript : MonoBehaviour
 		tempColor.a = 0f;
 		panel.color = tempColor;
 		txt = GetComponent<TextMeshProUGUI>();
+		textFinished = false;
 
 		story = txt.text;
 		txt.text = "";
 		StartCoroutine(FadeTextToFullAlpha(1f, txt));
 		StartCoroutine(FadeToFullAlpha(1f, panel));
-		StartCoroutine("PlayText");
+		textCoroutine = StartCoroutine("PlayText");
 	}
 
-	IEnumerator PlayText()
+	public IEnumerator PlayText()
 	{
 		yield return new WaitForSeconds(1f);
 		if(SceneManager.GetActiveScene().buildIndex == 1) //index for main scene
@@ -46,7 +49,7 @@ public class TextTypingScript : MonoBehaviour
 
 			foreach (string sentence in BeginningSentences)
 			{
-
+				textFinished = false;
 				StartCoroutine(FadeTextToFullAlpha(1f, txt));
 
 				story = sentence;
@@ -63,14 +66,16 @@ public class TextTypingScript : MonoBehaviour
 					yield return new WaitForSeconds(0.060f);
 				}
 
+				yield return new WaitForSeconds(1);
 
-				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-					if (OVRInput.Get(OVRInput.Button.One)) {
-						txt.text = "";
-					}
+				textFinished = true;
+
+				while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+					yield return null; //wait until player presses button;
 				}
 
 				StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+				txt.text = "";
 				yield return new WaitForSeconds(0.5f);
 			}
         }
@@ -78,6 +83,7 @@ public class TextTypingScript : MonoBehaviour
         {
 			foreach (string sentence in fishingSentences)
 			{
+				textFinished = false;
 				StartCoroutine(FadeTextToFullAlpha(1f, txt));
 				story = sentence;
 
@@ -94,22 +100,27 @@ public class TextTypingScript : MonoBehaviour
 					yield return new WaitForSeconds(0.060f);
 				}
 
-				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-					if (OVRInput.Get(OVRInput.Button.One)) {
-						txt.text = "";
-					}
+				yield return new WaitForSeconds(1);
+
+				textFinished = true;
+
+				while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+					yield return null; //wait until player presses button;
 				}
 
-				StartCoroutine(FadeTextToZeroAlpha(1f, txt));
-				yield return new WaitForSeconds(1f);
+				StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+				txt.text = "";
+				yield return new WaitForSeconds(0.5f);
 			}
 		}
 
 		else if (SceneManager.GetActiveScene().buildIndex == 3) //axe scene index 
 		{
+			Debug.Log("playing axe scene text");
 			if(!axe.AxeMinigameFinished) {
 				foreach (string sentence in axeSentences)
 				{
+					textFinished = false;
 					StartCoroutine(FadeTextToFullAlpha(1f, txt));
 					story = sentence;
 
@@ -126,19 +137,25 @@ public class TextTypingScript : MonoBehaviour
 						yield return new WaitForSeconds(0.060f);
 					}
 
-					while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-						if (OVRInput.Get(OVRInput.Button.One)) {
-							txt.text = "";
-						}
+					yield return new WaitForSeconds(1);
+
+					textFinished = true;
+
+					while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+						yield return null; //wait until player presses button;
 					}
 
-					StartCoroutine(FadeTextToZeroAlpha(1f, txt));
-					yield return new WaitForSeconds(1f);
+					StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+					txt.text = "";
+					yield return new WaitForSeconds(0.5f);
 				}
 
 			} else {
+
+				StartCoroutine(FadeToFullAlpha(1f, panel));
 				foreach (string sentence in axeSentencesFinished)
 				{
+					textFinished = false;
 					StartCoroutine(FadeTextToFullAlpha(1f, txt));
 					story = sentence;
 
@@ -155,17 +172,20 @@ public class TextTypingScript : MonoBehaviour
 						yield return new WaitForSeconds(0.060f);
 					}
 
-					while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-						if (OVRInput.Get(OVRInput.Button.One)) {
-							txt.text = "";
-						}
+					yield return new WaitForSeconds(1);
+
+					textFinished = true;
+
+					while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+						yield return null; //wait until player presses button;
 					}
 
-					StartCoroutine(FadeTextToZeroAlpha(1f, txt));
-					yield return new WaitForSeconds(1f);
+					StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+					txt.text = "";
+					yield return new WaitForSeconds(0.5f);
 				}
 
-				levelChanger.FadeToLevel(1);
+				levelChanger.FadeToLevel(1); //exit level when finished displaying text
 			}
 		}
 
@@ -173,6 +193,7 @@ public class TextTypingScript : MonoBehaviour
 		{
 			foreach (string sentence in spearSentences)
 			{
+				textFinished = false;
 				StartCoroutine(FadeTextToFullAlpha(1f, txt));
 				story = sentence;
 
@@ -189,14 +210,17 @@ public class TextTypingScript : MonoBehaviour
 					yield return new WaitForSeconds(0.060f);
 				}
 
-				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-					if (OVRInput.Get(OVRInput.Button.One)) {
-						txt.text = "";
-					}
+				yield return new WaitForSeconds(1);
+
+				textFinished = true;
+
+				while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+					yield return null; //wait until player presses button;
 				}
 
-				StartCoroutine(FadeTextToZeroAlpha(1f, txt));
-				yield return new WaitForSeconds(1f);
+				StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+				txt.text = "";
+				yield return new WaitForSeconds(0.5f);
 			}
 		}
 
@@ -204,6 +228,7 @@ public class TextTypingScript : MonoBehaviour
 		{
 			foreach (string sentence in hoeSentences)
 			{
+				textFinished = false;
 				StartCoroutine(FadeTextToFullAlpha(1f, txt));
 				story = sentence;
 
@@ -220,14 +245,17 @@ public class TextTypingScript : MonoBehaviour
 					yield return new WaitForSeconds(0.060f);
 				}
 
-				while(txt.text.ToString().Length > 0) { //wait to start next sentence until player presses button
-					if (OVRInput.Get(OVRInput.Button.One)) {
-						txt.text = "";
-					}
+				yield return new WaitForSeconds(1);
+
+				textFinished = true;
+
+				while (!OVRInput.Get(OVRInput.Button.One) && textFinished) {
+					yield return null; //wait until player presses button;
 				}
 
-				StartCoroutine(FadeTextToZeroAlpha(1f, txt));
-				yield return new WaitForSeconds(1f);
+				StartCoroutine(FadeTextToZeroAlpha(0.060f, txt));
+				txt.text = "";
+				yield return new WaitForSeconds(0.5f);
 			}
 		}
 

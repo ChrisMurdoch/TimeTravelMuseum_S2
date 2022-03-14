@@ -8,11 +8,12 @@ public class TreeCutter : MonoBehaviour
 {
 
     private bool canTrigger;
-    private int numTreesCut;
+    private int numTreesCut; 
     private bool axeMinigameFinished;
     private AudioSource chopSource;
 
     public TextMeshPro scoreText;
+    public TextTypingScript textTrigger;
     
 
     // Start is called before the first frame update
@@ -29,10 +30,11 @@ public class TreeCutter : MonoBehaviour
         GameObject hitObject = other.gameObject;
         Debug.Log("COLLISION with " + hitObject.name);
 
-        if(hitObject.tag == "cuttableTree")
+        if(hitObject.tag == "cuttableTree" && canTrigger)
         {
-            
+            Debug.Log("hit object tag correct & canTrigger");
             if(hitObject.GetComponent<treeHealthScript>() != null) {
+                Debug.Log("FOUND TREEHEALTH SCRIPT");
                 hitObject.GetComponent<treeHealthScript>().DamageTree();
             }
             
@@ -42,7 +44,7 @@ public class TreeCutter : MonoBehaviour
     } 
 
     void OnTriggerExit(Collider other) {
-
+        Debug.Log("EXIT COLLIDER");
         canTrigger = true;
     }
 
@@ -50,8 +52,14 @@ public class TreeCutter : MonoBehaviour
         numTreesCut++;
         scoreText.text = numTreesCut + " / 8 trees cut";
 
-        if (numTreesCut >= 8) {
+        if (numTreesCut >= 8) { 
+            Debug.Log("GAME FINISHED");
             axeMinigameFinished = true;
+
+            //stop coroutine and clear text to prevent overlapping
+            StopCoroutine(textTrigger.textCoroutine);
+            textTrigger.txt.text = "";
+            textTrigger.textCoroutine = StartCoroutine(textTrigger.PlayText());
         }
     }
 
