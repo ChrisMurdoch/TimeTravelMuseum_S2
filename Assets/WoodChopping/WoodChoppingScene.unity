@@ -1769,7 +1769,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b71fb54e868243bf7928118f52dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numTreesCut: 0
   scoreText: {fileID: 1220812612}
   textTrigger: {fileID: 1040318392}
 --- !u!114 &1286196008
