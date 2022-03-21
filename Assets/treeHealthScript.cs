@@ -53,6 +53,9 @@ public class treeHealthScript : MonoBehaviour
 
            currentTreeModel = newTreeTop;
            this.gameObject.tag = "Untagged";
+
+            //helps tree fall on its side
+           currentTreeModel.GetComponent<Rigidbody>().AddTorque(transform.right * 300);
            
            axe.IncreaseNumTreesCut();
        }
