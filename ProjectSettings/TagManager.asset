@@ -15,6 +15,7 @@ TagManager:
   - cuttableTree
   - axe
   - Tree
+  - Ground
   layers:
   - Default
   - TransparentFX
