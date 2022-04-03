@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class atlatlScript : MonoBehaviour
 {
-
+    //controller must be moving at least this velocity to throw when button is pressed
+    [SerializeField]
+    private float minThrowVelocity; 
     private bool loaded;
     private bool arcRendering;
+
+    private Vector3 neutralPos;
+    
     private GameObject currentSpear;
     private LaunchArcRenderer lr;
+
+    public OVRInput.RawButton posButtonR;
+    public OVRInput.RawButton throwButtonR;
+    public OVRInput.RawButton posButtonL;
+    public OVRInput.RawButton throwButtonL;
 
     // Start is called before the first frame update
     void Start()
@@ -24,16 +34,56 @@ public class atlatlScript : MonoBehaviour
 
         if(loaded) {
 
-            if(OVRInput.Get(OVRInput.Button.One)) 
-            {
-                ThrowSpear();
-            }
-
             currentSpear.transform.position = this.transform.position;
             currentSpear.transform.rotation = this.transform.rotation;
-            Debug.Log("transform.forward = (" + transform.forward.x + ", " + transform.forward.y + ", " + transform.forward.z + ")" );
-            //if (hand position is behind neutral) {
-                //BeginArcRender(neutralPos, controllerPos, angle);
+            
+            //check if the atlatl is grabbed
+            if (transform.parent != null) {
+            
+
+                //use left hand buttons
+                if (transform.parent.name == "CustomHandLeft") {
+
+                    // positioning / render arc
+                    if(OVRInput.GetDown(posButtonL)) {
+
+                        RenderArc();     
+                    }
+                    //cancel if positioning button is pressed again
+                    else if(arcRendering && OVRInput.GetDown(posButtonR)) {
+                        EndArcRender();
+                    }
+
+                    //throw spear
+                    if(arcRendering && OVRInput.GetDown(throwButtonL)) {
+
+                        //check controller vel > some threshold
+                        //launch spear
+                    }
+
+                    
+
+                //use right hand buttons
+                } else if (transform.parent.name == "CustomHandRight") {
+
+                    if(OVRInput.GetDown(posButtonR)) {
+
+                        RenderArc();     
+                    }
+
+                     else if(arcRendering && OVRInput.GetDown(posButtonR)) {
+                        EndArcRender();
+                    }
+
+                    if(arcRendering && OVRInput.GetDown(throwButtonR)) {
+
+                        //check controller vel > some threshold
+                        //launch spear
+                    }
+
+                   
+                }
+            }
         }
     }
 
@@ -55,18 +105,33 @@ public class atlatlScript : MonoBehaviour
     }
 
     //call function to render line, give velocity and angle info based on controller pos
-    private void BeginArcRender (Vector3 neutralPos, Vector3 controllerPos, float angle)
+    private void RenderArc ()
     {
-        //calculate controllerPos distance from neutralPos
-        //float backDist = controllerPos(forward) - neutralPos(forward) normalized?
-        //float velocity = CalculateVelocity(backDist);
-        // get angle atlatl is held at 
+        Debug.Log("arc render called");
+        float angle = this.transform.rotation.x;
 
-        //lr.RenderArc(velocity, angle, z)
+        Vector3 controllerPos = new Vector3();
+
+        //if this is the first time this is called for this throw
+        if (!arcRendering) {
+
+            neutralPos = this.transform.position;
+            controllerPos = neutralPos;
+
+        } else {
+
+            controllerPos = this.transform.position;
+        }
+
+        float backDist = neutralPos.z - controllerPos.z;
+        float velocity = CalculateVelocity(backDist);
+
+        lr.MakeArcMesh(velocity, angle);
         arcRendering = true;
     }
 
     private void EndArcRender() {
+        Debug.Log("arc end called");
         lr.ClearArc();
         arcRendering = false;
     }
