@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9049226451665587608}
   - component: {fileID: 839676429467816921}
   - component: {fileID: 4969703222983782059}
+  - component: {fileID: 8739515198381759959}
   m_Layer: 0
   m_Name: LaunchArcRenderer
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8739515198381759959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9049226451665587611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2dfbc1b0f42df4c9afbaa1289711a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshWidth: 0.5
+  numSegments: 20
 --- !u!1 &9049226451871952904
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba93c6632b612f4fa3a9c94a5e78be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minThrowVelocity: 0
   posButtonR: 2
   throwButtonR: 67108864
   posButtonL: 512

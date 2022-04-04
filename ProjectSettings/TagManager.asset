@@ -16,6 +16,9 @@ TagManager:
   - axe
   - Tree
   - Ground
+  - spearTarget
+  - spear
+  - atlatl
   layers:
   - Default
   - TransparentFX
