@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: ee2f4c920865d3f499be07349103ed68
+guid: 8887c62ac696446408e79decadcb36fb
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: DeerWalk
+    second: DeerStand
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: DeerWalk
+      name: DeerStand
       takeName: Take 001
       internalID: 0
-      firstFrame: 1
-      lastFrame: 30
+      firstFrame: 35
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
