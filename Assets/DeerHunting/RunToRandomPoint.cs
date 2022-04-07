@@ -7,18 +7,23 @@ public class RunToRandomPoint : MonoBehaviour
    // float MovementSpeed = 5.0f;
     float CloseEnough = 5.0f;
     public NavMeshAgent nav;
+    private Animator DeerMovement;
+
+    void Awake() {
+        DeerMovement = GetComponent<Animator>();
+    }
  
     IEnumerator Start()
     {
-   
 
-       
+
         targetPos = nav.transform.position;
         while (true)
         {
+            DeerMovement.SetBool("WalkBool", false);
             yield return new WaitForSeconds(2.0f);
-            targetPos = new Vector3(nav.transform.position.x + (Random.Range(-10 * nav.transform.localScale.x, 10 * nav.transform.localScale.x)), nav.transform.position.y, nav.transform.position.z + (Random.Range(-5 * nav.transform.localScale.z, 5 * nav.transform.localScale.z)));
-       
+            targetPos = new Vector3(nav.transform.position.x + (Random.Range(-10 * nav.transform.localScale.x, 10 * nav.transform.localScale.x)), nav.transform.position.y, nav.transform.position.z + (Random.Range(-5 * nav.transform.localScale.z, 5 * nav.transform.localScale.z))); 
+
             while ((nav.transform.position - targetPos).magnitude > CloseEnough )
             {
                 yield return new WaitForSeconds(2.0f);
@@ -38,7 +43,6 @@ public class RunToRandomPoint : MonoBehaviour
 
     void Update()
     {
-
         if ((nav.transform.position - targetPos).magnitude > CloseEnough )
         {
             nav.transform.LookAt(targetPos);
@@ -53,7 +57,8 @@ public class RunToRandomPoint : MonoBehaviour
                 
                
             }
-          //  nav.transform.position += (targetPos - nav.transform.position).normalized * MovementSpeed * Time.deltaTime;
+            DeerMovement.SetBool("WalkBool", true);
+            //  nav.transform.position += (targetPos - nav.transform.position).normalized * MovementSpeed * Time.deltaTime;
         }
     }
 }
