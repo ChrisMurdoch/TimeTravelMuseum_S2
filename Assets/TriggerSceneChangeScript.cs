@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 public class TriggerSceneChangeScript : MonoBehaviour
 {
     public GameObject levelChanger;
+
+    private bool sceneChanged;
+
     void Start()
     {
-        
+        sceneChanged = false;
     }
 
     // Update is called once per frame
@@ -19,7 +22,7 @@ public class TriggerSceneChangeScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(!sceneChanged && (other.tag == "Player" || other.transform.root.tag == "Player"))
         {
             if(this.gameObject.tag == "door" && SceneManager.GetActiveScene().buildIndex != 1) //enter main hub from any scene
             {
@@ -38,12 +41,12 @@ public class TriggerSceneChangeScript : MonoBehaviour
 
             else if (this.gameObject.tag == "axe") //enter axe scene from main hub
             {
-                Debug.Log("trigger scene change");
                 levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(3);
             }
 
-            else if (this.gameObject.tag == "spear") //enter spear scene from main hub
+            else if (this.gameObject.tag == "atlatl") //enter spear scene from main hub
             {
+                Debug.Log("trigger scene change");
                 levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(4);
             }
 
@@ -51,6 +54,8 @@ public class TriggerSceneChangeScript : MonoBehaviour
             {
                 levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(5);
             }
+
+            sceneChanged = true;
 
         }
     }

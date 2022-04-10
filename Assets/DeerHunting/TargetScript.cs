@@ -5,6 +5,7 @@ using UnityEngine;
 public class TargetScript : MonoBehaviour
 {
 
+
     //plays death animation and destroys itself
     public void KillTarget() {
 

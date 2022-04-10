@@ -7,10 +7,13 @@ public class spearSpawner : MonoBehaviour
     public GameObject currentSpear;
     public GameObject spearPrefab;
 
+    public TextTypingScript textTrigger;
+    [HideInInspector] public bool gameOver;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameOver = false;
     }
 
     // Update is called once per frame
@@ -18,6 +21,16 @@ public class spearSpawner : MonoBehaviour
     {
         if (currentSpear == null) {
             SpawnNewSpear();
+        }
+
+        if (gameOver) {
+            Debug.Log("GAME OVER");
+
+            //stop coroutine and clear text to prevent overlapping
+            StopCoroutine(textTrigger.textCoroutine);
+            textTrigger.txt.text = "";
+            textTrigger.textCoroutine = StartCoroutine(textTrigger.PlayText());
+            gameOver = false; //prevents coroutine from starting over every frame
         }
     }
 

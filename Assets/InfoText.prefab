@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 0}
+  txt: {fileID: 5895947059226047246}
   BeginningSentences:
   - Welcome to Artifacts of the Native Americans Museum, we hope you will find your
     journey through our displays exciting and educational. Our musuem is not just
@@ -162,3 +163,17 @@ MonoBehaviour:
     the Cherokee, the last of the great native peoples to inhabit this area.
   - We encourage you to handle the artifacts, read their history, and experience
     their life!
+  fishingSentences: []
+  axeSentences: []
+  axeSentencesFinished: []
+  axe: {fileID: 0}
+  levelChanger: {fileID: 0}
+  spearSentences:
+  - The atlatl is a hunting tool invented by the Paleoindian tribes during the Stone
+    Age. It is basically a notched stick that could hold a very light spear, called
+    a dart.
+  - 'The atlatl allowed people to throw spears much farther and faster than they
+    could with just their arm, so it was originally used to hunt big game like mammoths.
+    Today, you will try to hunt a deer with the atlatl and spear. '
+  spearSentencesFinished: []
+  hoeSentences: []

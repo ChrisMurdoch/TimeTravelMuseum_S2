@@ -29,6 +29,7 @@ public class atlatlScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
         loaded = false;
         arcRendering = false;
         lr = GetComponentInChildren<LaunchArcRenderer>();
