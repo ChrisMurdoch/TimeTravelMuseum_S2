@@ -12,6 +12,12 @@ public class spearScript : MonoBehaviour
         spawn = GameObject.Find("spearSpawn").GetComponent<spearSpawner>();
     }
 
+    void LateUpdate()
+    {
+        if (thrown)
+            StartCoroutine(SelfDestruct()); //start timer to destroy spear after it has been thrown
+    }
+
     //called when spear tip hits something
     void OnTriggerEnter (Collider other) {
 
@@ -24,5 +30,11 @@ public class spearScript : MonoBehaviour
             }
            Destroy(this.gameObject); //destroy spear after it hits something
         }
+    }
+
+    IEnumerator SelfDestruct() //destroy game object after amount of time 
+    {
+        yield return new WaitForSeconds(4f);
+        Destroy(this.gameObject);
     }
 }

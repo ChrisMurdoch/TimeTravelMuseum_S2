@@ -19,6 +19,7 @@ TagManager:
   - spearTarget
   - spear
   - atlatl
+  - hoe
   layers:
   - Default
   - TransparentFX
