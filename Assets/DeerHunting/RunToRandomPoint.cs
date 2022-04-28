@@ -8,9 +8,11 @@ public class RunToRandomPoint : MonoBehaviour
     float CloseEnough = 5.0f;
     public NavMeshAgent nav;
     private Animator DeerMovement;
+    public AudioSource walkSource;
 
     void Awake() {
         DeerMovement = GetComponent<Animator>();
+        walkSource = GetComponent<AudioSource>();
     }
  
     IEnumerator Start()
@@ -62,9 +64,11 @@ public class RunToRandomPoint : MonoBehaviour
 
         if(nav.velocity != Vector3.zero) {
             DeerMovement.SetBool("WalkBool", true);
+         
         }
         else {
             DeerMovement.SetBool("WalkBool", false);
+            walkSource.Play();
         }
     }
 }
