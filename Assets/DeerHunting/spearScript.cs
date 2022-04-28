@@ -5,16 +5,19 @@ using UnityEngine;
 public class spearScript : MonoBehaviour
 {
     public bool thrown;
+    public AudioSource throwSource;
 
     private spearSpawner spawn;
     void Start() {
         thrown = false;
         spawn = GameObject.Find("spearSpawn").GetComponent<spearSpawner>();
+        throwSource = GetComponent<AudioSource>();
     }
 
     void LateUpdate()
     {
         if (thrown)
+            throwSource.Play();
             StartCoroutine(SelfDestruct()); //start timer to destroy spear after it has been thrown
     }
 
