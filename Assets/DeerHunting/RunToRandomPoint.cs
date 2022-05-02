@@ -20,7 +20,7 @@ public class RunToRandomPoint : MonoBehaviour
 
         DeerMovement.SetBool("WalkBool", false);
         targetPos = nav.transform.position;
-        while (true)
+        while (DeerMovement.GetBool("DeathBool") == false)
         {
             yield return new WaitForSeconds(2.0f);
             targetPos = new Vector3(nav.transform.position.x + (Random.Range(-10 * nav.transform.localScale.x, 10 * nav.transform.localScale.x)), nav.transform.position.y, nav.transform.position.z + (Random.Range(-5 * nav.transform.localScale.z, 5 * nav.transform.localScale.z))); 

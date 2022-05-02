@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class TargetScript : MonoBehaviour
 {
+    private Animator DeerMovement;
 
+    void start() {
+        DeerMovement = GetComponent<Animator>();
+    }
 
-    //plays death animation and destroys itself
     public void KillTarget() {
 
         //play death anim
-        Destroy(this.gameObject);
+        DeerMovement.SetBool("DeathBool", true);
+        DeerMovement.SetBool("WalkBool", false);
     }
 }
