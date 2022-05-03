@@ -198,7 +198,7 @@ public class TextTypingScript : MonoBehaviour
 		{
 			spearTargets = GameObject.FindGameObjectsWithTag("spearTarget");
 			Debug.Log("PLAY SPEAR TEXT");
-			if(spearTargets.Length > 0) //spear game isn't over, target hasn't been destroyed
+			if(spearTargets[0].GetComponent<TargetScript>().dead == false) //spear game isn't over, target hasn't been destroyed
 			{
 				foreach (string sentence in spearSentences)
 				{
