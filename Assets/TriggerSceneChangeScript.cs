@@ -26,6 +26,7 @@ public class TriggerSceneChangeScript : MonoBehaviour
         {
             if(this.gameObject.tag == "door" && SceneManager.GetActiveScene().buildIndex != 1) //enter main hub from any scene
             {
+                Debug.Log("enter door");
                 levelChanger.GetComponent<LevelChangeScript>().FadeToLevel(1);
             }
 

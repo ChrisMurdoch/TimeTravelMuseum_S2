@@ -20,8 +20,8 @@ public class RunToRandomPoint : MonoBehaviour
 
         DeerMovement.SetBool("WalkBool", false);
         targetPos = nav.transform.position;
-        while (DeerMovement.GetBool("DeathBool") == false)
-        {
+        //while (DeerMovement.GetBool("DeathBool") == false)
+        //{
             yield return new WaitForSeconds(2.0f);
             targetPos = new Vector3(nav.transform.position.x + (Random.Range(-10 * nav.transform.localScale.x, 10 * nav.transform.localScale.x)), nav.transform.position.y, nav.transform.position.z + (Random.Range(-5 * nav.transform.localScale.z, 5 * nav.transform.localScale.z))); 
 
@@ -29,7 +29,7 @@ public class RunToRandomPoint : MonoBehaviour
             {
                 yield return new WaitForSeconds(2.0f);
             }
-        }
+        //}
     }
 
     /*
@@ -44,31 +44,37 @@ public class RunToRandomPoint : MonoBehaviour
 
     void Update()
     {
-        if ((nav.transform.position - targetPos).magnitude > CloseEnough )
-        {
-            nav.transform.LookAt(targetPos);
-            nav.SetDestination(targetPos);
-            //Debug.Log(" " + nav.pathStatus);
-            if (nav.pathStatus == NavMeshPathStatus.PathPartial || nav.pathStatus == NavMeshPathStatus.PathInvalid)
+        if(!DeerMovement.GetBool("DeathBool")) {
+            if ((nav.transform.position - targetPos).magnitude > CloseEnough )
             {
-                
-                targetPos = new Vector3(nav.transform.position.x + (Random.Range(-10 * nav.transform.localScale.x, 10 * nav.transform.localScale.x)), nav.transform.position.y, nav.transform.position.z + (Random.Range(-5 * nav.transform.localScale.z, 5 * nav.transform.localScale.z)));
                 nav.transform.LookAt(targetPos);
                 nav.SetDestination(targetPos);
+                //Debug.Log(" " + nav.pathStatus);
+                if (nav.pathStatus == NavMeshPathStatus.PathPartial || nav.pathStatus == NavMeshPathStatus.PathInvalid)
+                {
+                
+                    targetPos = new Vector3(nav.transform.position.x + (Random.Range(-10 * nav.transform.localScale.x, 10 * nav.transform.localScale.x)), nav.transform.position.y, nav.transform.position.z + (Random.Range(-5 * nav.transform.localScale.z, 5 * nav.transform.localScale.z)));
+                    nav.transform.LookAt(targetPos);
+                    nav.SetDestination(targetPos);
                 
                
+                }
+                //  nav.transform.position += (targetPos - nav.transform.position).normalized * MovementSpeed * Time.deltaTime;
             }
-            //  nav.transform.position += (targetPos - nav.transform.position).normalized * MovementSpeed * Time.deltaTime;
-        }
 
 
-        if(nav.velocity != Vector3.zero) {
-            DeerMovement.SetBool("WalkBool", true);
+            if(nav.velocity != Vector3.zero) {
+                DeerMovement.SetBool("WalkBool", true);
          
+            }
+            else {
+                DeerMovement.SetBool("WalkBool", false);
+                walkSource.Play();
+            }
         }
+
         else {
-            DeerMovement.SetBool("WalkBool", false);
-            walkSource.Play();
+            nav.enabled = false;
         }
     }
 }

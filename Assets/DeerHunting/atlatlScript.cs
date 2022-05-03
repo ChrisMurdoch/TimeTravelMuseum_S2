@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class atlatlScript : MonoBehaviour
 {
+    public float testVelocity; //value used for testing throws
     [SerializeField] private float velFactor; //number to multiply calculated velocity by
     private bool loaded; //whether the atlatl has been loaded with a spear
     private Vector3 currentVelocity; 
@@ -95,8 +96,8 @@ public class atlatlScript : MonoBehaviour
 
         float velocityValue = (Mathf.Abs(currentVelocity.x) + Mathf.Abs(currentVelocity.y) + Mathf.Abs(currentVelocity.z)) / 3.0f;
         //add force of the current velocity times your scaling factor
-        srb.AddForceAtPosition(velocityValue * trackingSpace.transform.forward, spearTip.position); //apply velocity from controller movement
-
+        //srb.AddForceAtPosition(velocityValue * trackingSpace.transform.forward, spearTip.position); //apply velocity from controller movement
+        srb.AddForceAtPosition(testVelocity * trackingSpace.transform.forward, spearTip.position); //apply velocity when testing
         //Transform spearTip = currentSpear.transform.Find("spearTipPos");
         //rb.AddForceAtPosition(-transform.right * 2500f, spearTip.position);
         currentSpear.GetComponent<spearScript>().thrown = true;

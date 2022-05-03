@@ -6,7 +6,7 @@ public class TargetScript : MonoBehaviour
 {
     private Animator DeerMovement;
 
-    void start() {
+    void Start() {
         DeerMovement = GetComponent<Animator>();
     }
 

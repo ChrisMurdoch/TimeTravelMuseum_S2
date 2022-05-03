@@ -19,6 +19,7 @@ public class LevelChangeScript : MonoBehaviour
 
     public void FadeToLevel(int levelIndex)
     {
+        Debug.Log("called FadetoLevel");
         levelToLoad = levelIndex;
         animator.SetTrigger("FadeOut");
         Color trigger = faderImage.color;
@@ -36,6 +37,7 @@ public class LevelChangeScript : MonoBehaviour
     public IEnumerator OnFadeComplete()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelToLoad);
+        Debug.Log("Loading main scene");
         while (!asyncLoad.isDone)
         {
             yield return null;

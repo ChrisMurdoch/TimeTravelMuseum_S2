@@ -16,9 +16,10 @@ public class spearScript : MonoBehaviour
 
     void LateUpdate()
     {
-        if (thrown)
+        if (thrown) {
             throwSource.Play();
             StartCoroutine(SelfDestruct()); //start timer to destroy spear after it has been thrown
+        }
     }
 
     //called when spear tip hits something

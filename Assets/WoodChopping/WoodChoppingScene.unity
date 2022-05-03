@@ -306,12 +306,17 @@ PrefabInstance:
       objectReference: {fileID: 571570566}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30823ad7749fe3c438e56948bd3d5898, type: 3}
+--- !u!1 &81763658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8617456781603852878, guid: 30823ad7749fe3c438e56948bd3d5898, type: 3}
+  m_PrefabInstance: {fileID: 81763657}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &81763659 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8617456781603852867, guid: 30823ad7749fe3c438e56948bd3d5898, type: 3}
   m_PrefabInstance: {fileID: 81763657}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 81763658}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b01f90e38e857f48a79000ee448c9b6, type: 3}
@@ -1355,7 +1360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db938fe9a06f0941807a93912a89898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelChanger: {fileID: 8617456781603852878, guid: 30823ad7749fe3c438e56948bd3d5898, type: 3}
+  levelChanger: {fileID: 81763658}
 --- !u!135 &772332605
 SphereCollider:
   m_ObjectHideFlags: 0
