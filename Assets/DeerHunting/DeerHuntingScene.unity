@@ -489,6 +489,10 @@ PrefabInstance:
       propertyPath: m_grabPoints.Array.data[0]
       value: 
       objectReference: {fileID: 536278740}
+    - target: {fileID: 7405916095621117571, guid: a59f045f0230af94ab376d00840e112f, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 71b1b6d5cd29bf84a8a030b92e90628e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a59f045f0230af94ab376d00840e112f, type: 3}
 --- !u!1 &536278736 stripped
@@ -879,7 +883,7 @@ AudioSource:
   m_GameObject: {fileID: 944491666}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 71b1b6d5cd29bf84a8a030b92e90628e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 77e0fa6507e76034b956e23ceedff542, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.351
